@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+<meta charset="UTF-8">
+<title>Designo Tech Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: monospace;
+    background: #020617;
+    color: #22c55e;
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #000;
+    border-bottom: 1px solid #22c55e;
+}
+
+nav a {
+    color: #22c55e;
+    margin-left: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* SECTIONS */
+section {
+    display: none;
+    padding: 60px;
+    min-height: 100vh;
+}
+
+.active {
+    display: block;
+}
+
+/* BACKGROUND LOGO */
+.bg-logo {
+    position: relative;
+    background: url('logo.png') no-repeat center;
+    background-size: 350px;
+}
+
+/* OVERLAY */
+.bg-logo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.92);
+    z-index: 0;
+}
+
+/* CONTENT ABOVE */
+.bg-logo * {
+    position: relative;
+    z-index: 1;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.logo {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+/* TYPING */
+.typing {
+    font-size: 24px;
+    border-right: 2px solid #22c55e;
+    display: inline-block;
+}
+
+/* SERVICES */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid #22c55e;
+    padding: 15px;
+    width: 260px;
+    background: rgba(0,0,0,0.7);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #22c55e;
+    color: #22c55e;
+    text-decoration: none;
+    background: black;
+}
+
+.btn:hover {
+    background: #22c55e;
+    color: black;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div>Designo Tech Studio</div>
+    <div>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('services')">Services</a>
+        <a onclick="showPage('contact')">Contact</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+    <div class="hero">
+        <img src="logo.png" class="logo">
+        <h1>Designo Tech Studio</h1>
+        <div class="typing" id="typing"></div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="bg-logo">
+    <h1>Our Services</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+            <h3>Web Development</h3>
+            <p>Professional responsive websites for businesses</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa">
+            <h3>Web Hosting</h3>
+            <p>Fast and secure hosting solutions</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d">
+            <h3>Graphic Designing</h3>
+            <p>Creative logos and digital designs</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="bg-logo">
+    <h1>Contact</h1>
+
+    <p>Reach us easily:</p>
+
+    <!-- GMAIL DIRECT BUTTON -->
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=designotechstudio@gmail.com&su=Project%20Inquiry" 
+       target="_blank" 
+       class="btn">
+        📧 Send Email
+    </a>
+
+    <br><br>
+
+    <!-- GOOGLE FORM -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYOPYZ100gdCyQPe7wHEVc1fuOJRqQCjouiXwPkR4vSOGJZw/viewform" 
+       target="_blank" 
+       class="btn">
+        📄 Open Contact Form
+    </a>
+</section>
+
+<script>
+function showPage(page) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+}
+
+/* TYPING EFFECT */
+const text = [
+    "Building Future Tech...",
+    "Hosting Reliable Websites...",
+    "Designing Creative Graphics..."
+];
+
+let i = 0, j = 0, currentText = "", isDeleting = false;
+
+function type() {
+    currentText = text[i];
+
+    if (!isDeleting) {
+        document.getElementById("typing").innerHTML = currentText.substring(0, j++);
+        if (j > currentText.length) {
+            isDeleting = true;
+            setTimeout(type, 1000);
+            return;
+        }
+    } else {
+        document.getElementById("typing").innerHTML = currentText.substring(0, j--);
+        if (j < 0) {
+            isDeleting = false;
+            i = (i + 1) % text.length;
+        }
+    }
+
+    setTimeout(type, isDeleting ? 50 : 100);
+}
+
+type();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>
